@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/pic" />
+
+        <EditText
+            android:layout_column="0"
+            android:layout_row="1"
+            android:id="@+id/GimText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"/>
+
+        <TextView
+            android:layout_column="1"
+            android:layout_row="1"
+            android:id="@+id/GimResult1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_column="0"
+            android:layout_row="2"
+            android:id="@+id/GimText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"/>
+
+        <TextView
+            android:layout_column="1"
+            android:layout_row="2"
+            android:id="@+id/GimResult2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_column="0"
+            android:layout_row="3"
+            android:id="@+id/btnClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="clear"/>
+
+        <Button
+            android:layout_column="1"
+            android:layout_row="3"
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"/>
+
+        <Button
+            android:layout_column="0"
+            android:layout_row="4"
+            android:id="@+id/btnRead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="read"/>
+
+
+        <Button
+            android:layout_column="1"
+            android:layout_row="4"
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="send"/>
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

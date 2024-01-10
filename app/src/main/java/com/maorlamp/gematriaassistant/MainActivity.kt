@@ -2,6 +2,7 @@ package com.maorlamp.gematriaassistant
 
 import android.content.Intent
 import android.graphics.Color
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextWatcher
@@ -9,7 +10,7 @@ import android.text.Editable
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Button
-import java.io.File
+import android.widget.ImageButton
 import kotlin.math.abs
 
 
@@ -18,97 +19,76 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val GimText1 = findViewById<EditText>(R.id.GimText1)
-        val GimResult1 = findViewById<TextView>(R.id.GimResult1)
-        val GimText2 = findViewById<EditText>(R.id.GimText2)
-        val GimResult2 = findViewById<TextView>(R.id.GimResult2)
-        val btnClear = findViewById<Button>(R.id.btnClear)
-        val btnSave = findViewById<Button>(R.id.btnSave)
-        val btnRead = findViewById<Button>(R.id.btnRead)
-        val btnSend = findViewById<Button>(R.id.btnSend)
+        val etGimText1 = findViewById<EditText>(R.id.GimText1)
+        val etGimResult1 = findViewById<TextView>(R.id.GimResult1)
+        val etGimText2 = findViewById<EditText>(R.id.GimText2)
+        val etGimResult2 = findViewById<TextView>(R.id.GimResult2)
+        val btnClear = findViewById<ImageButton>(R.id.btnClear)
+        val btnSave = findViewById<ImageButton>(R.id.btnSave)
+        val btnSend = findViewById<ImageButton>(R.id.btnSend)
 
-        GimText1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Add your code here if needed, or leave it empty if not required
-            }
+        etGimText1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                GimResult1.text = CalcGim(s)
-                if (GimText1.text.length > 0 && GimText2.text.length > 0)
+                etGimResult1.text = CalcGim(s)
+                if (etGimText1.text.length > 0 && etGimText2.text.length > 0)
                     CheckForEqual()
             }
 
-            override fun afterTextChanged(s: Editable?) {
-
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
 
-        GimText2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Add your code here if needed, or leave it empty if not required
-            }
+        etGimText2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                GimResult2.text = CalcGim(s)
-                if (GimText1.text.length > 0 && GimText2.text.length > 0)
+                etGimResult2.text = CalcGim(s)
+                if (etGimText1.text.length > 0 && etGimText2.text.length > 0)
                     CheckForEqual()
             }
 
-            override fun afterTextChanged(s: Editable?) {
-
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         btnClear.setOnClickListener {
-            GimText1.setText("")
-            GimText2.setText("")
+            etGimText1.setText("")
+            etGimText2.setText("")
         }
 
         btnSave.setOnClickListener {
             SaveGim()
         }
 
-        btnRead.setOnClickListener {
-            ReadGim()
-        }
-
         btnSend.setOnClickListener {
-           SendGim()
+            SendGim()
         }
     }
 
     fun SendGim() {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_TEXT, "testing")
-        intent.type="text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, GetGimPar())
+        intent.type = "text/plain"
         startActivity(intent)
     }
 
-    fun SaveGim() {
-        val GimText1 = findViewById<EditText>(R.id.GimText1)
-        val GimText2 = findViewById<EditText>(R.id.GimText2)
-        /*
-        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        sharedPreferences.edit().putString("Gim",GimText1.text.toString() + "|" + GimText2.text.toString()).apply()
-         */
-
-        val f = File("jjj.txt"!!)
-        f.appendText(GimText1.text.toString() + "|" + GimText2.text.toString() + System.getProperty("line.separator"))
+    fun GetGimPar(): CharSequence? {
+        val etGimText1 = findViewById<EditText>(R.id.GimText1)
+        val etGimText2 = findViewById<EditText>(R.id.GimText2)
+        return etGimText1.text.toString() + "|" + etGimText2.text.toString()
     }
 
-    fun ReadGim() {
+    fun SaveGim() {
+        val etGimText1 = findViewById<EditText>(R.id.GimText1)
+        val etGimText2 = findViewById<EditText>(R.id.GimText2)
         /*
         val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        val name = sharedPreferences.getString("Gim", "")
-        val btnSave = findViewById<Button>(R.id.btnSave)
-        btnSave.setText(name)
+        sharedPreferences.edit().putString("Gim", GetGimPar()).apply()
 
-         */
-        val btnSave = findViewById<Button>(R.id.btnSave)
         val f = File("jjj.txt"!!)
-        btnSave.setText(f.readText())
-
+        f.appendText(GetGimPar() + System.getProperty("line.separator"))
+         */
     }
 
     fun CalcGim(s: CharSequence?): CharSequence? {
@@ -152,22 +132,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun CheckForEqual() {
-        val GimResult1 = findViewById<TextView>(R.id.GimResult1)
-        val GimResult2 = findViewById<TextView>(R.id.GimResult2)
-        var results1: Int = GimResult1.text.toString().toInt()
-        var results2: Int = GimResult2.text.toString().toInt()
+        val etGimResult1 = findViewById<TextView>(R.id.GimResult1)
+        val etGimResult2 = findViewById<TextView>(R.id.GimResult2)
+        var results1: Int = etGimResult1.text.toString().toInt()
+        var results2: Int = etGimResult2.text.toString().toInt()
 
-        if (results1 == results2 ) {
-            GimResult1.setTextColor(Color.parseColor("#7B68EE"))
-            GimResult2.setTextColor(Color.parseColor("#7B68EE"))
-        }
-        else if (abs(results1 - results2) == 1 ) {
-            GimResult1.setTextColor(Color.parseColor("#FF4500"))
-            GimResult2.setTextColor(Color.parseColor("#FF4500"))
-        }
-        else {
-            GimResult1.setTextColor(Color.parseColor("#000000"))
-            GimResult2.setTextColor(Color.parseColor("#000000"))
+        if (results1 == results2) {
+            etGimResult1.setTextColor(Color.parseColor("#7B68EE"))
+            etGimResult2.setTextColor(Color.parseColor("#7B68EE"))
+        } else if (abs(results1 - results2) == 1) {
+            etGimResult1.setTextColor(Color.parseColor("#FF4500"))
+            etGimResult2.setTextColor(Color.parseColor("#FF4500"))
+        } else {
+            etGimResult1.setTextColor(Color.parseColor("#000000"))
+            etGimResult2.setTextColor(Color.parseColor("#000000"))
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.maorlamp.gematriaassistant
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.media.Image
@@ -7,25 +8,58 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextWatcher
 import android.text.Editable
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import kotlin.math.abs
 
 
 class MainActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
         val etGimText1 = findViewById<EditText>(R.id.GimText1)
         val etGimResult1 = findViewById<TextView>(R.id.GimResult1)
         val etGimText2 = findViewById<EditText>(R.id.GimText2)
         val etGimResult2 = findViewById<TextView>(R.id.GimResult2)
-        val btnClear = findViewById<ImageButton>(R.id.btnClear)
-        val btnSave = findViewById<ImageButton>(R.id.btnSave)
-        val btnSend = findViewById<ImageButton>(R.id.btnSend)
+
+        var popupMenu: PopupMenu
+        val CurrGimMenu = findViewById<View>(R.id.CurrGimMenu)
+        popupMenu = PopupMenu(this, CurrGimMenu)
+        popupMenu.inflate(R.menu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.currClear -> {
+                    etGimText1.setText("")
+                    etGimText2.setText("")
+                    true
+                }
+                R.id.currSend -> {
+                    SendGim()
+                    true
+                }
+                R.id.currSave -> {
+                    SaveGim()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        CurrGimMenu.setOnClickListener {
+            popupMenu.show()
+        }
 
         etGimText1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -51,18 +85,19 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        btnClear.setOnClickListener {
-            etGimText1.setText("")
-            etGimText2.setText("")
-        }
-
-        btnSave.setOnClickListener {
-            SaveGim()
-        }
+        /*
 
         btnSend.setOnClickListener {
             SendGim()
         }
+        */
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu from the XML resource
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
     }
 
     fun SendGim() {

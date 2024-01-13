@@ -173,14 +173,14 @@ class MainActivity : AppCompatActivity() {
         var results2: Int = etGimResult2.text.toString().toInt()
 
         if (results1 == results2) {
-            etGimResult1.setTextColor(Color.parseColor("#7B68EE"))
-            etGimResult2.setTextColor(Color.parseColor("#7B68EE"))
+            etGimResult1.setTextColor(Color.parseColor("#ffd700"))
+            etGimResult2.setTextColor(Color.parseColor("#ffd700"))
         } else if (abs(results1 - results2) == 1) {
-            etGimResult1.setTextColor(Color.parseColor("#FF4500"))
-            etGimResult2.setTextColor(Color.parseColor("#FF4500"))
+            etGimResult1.setTextColor(Color.parseColor("#ff751a"))
+            etGimResult2.setTextColor(Color.parseColor("#ff751a"))
         } else {
-            etGimResult1.setTextColor(Color.parseColor("#000000"))
-            etGimResult2.setTextColor(Color.parseColor("#000000"))
+            etGimResult1.setTextColor(Color.parseColor("#ffffff"))
+            etGimResult2.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 }

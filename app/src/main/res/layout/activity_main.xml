@@ -17,7 +17,7 @@
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="3"
+            android:columnCount="2"
             android:paddingTop="33dp"
             android:rowCount="2">
 
@@ -27,9 +27,10 @@
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:height="33dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:width="275dp"
+                android:height="33dp"
                 android:background="@drawable/gim_text"
                 android:ems="15" />
 
@@ -40,10 +41,10 @@
                 android:layout_row="0"
                 android:layout_column="1"
                 android:height="33dp"
+                android:shadowRadius="@integer/material_motion_duration_long_2"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="25sp"
-                android:shadowRadius="@integer/material_motion_duration_long_2" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/GimText2"
@@ -51,9 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:height="33dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:width="275dp"
+                android:height="33dp"
                 android:background="@drawable/gim_text"
                 android:ems="15" />
 
@@ -64,19 +66,61 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:height="33dp"
+                android:shadowRadius="@integer/material_motion_duration_long_2"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="25sp"
-                android:shadowRadius="@integer/material_motion_duration_long_2" />
+                android:textStyle="bold" />
 
-            <View
-                android:id="@+id/CurrGimMenu"
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:paddingTop="33dp"
+            android:paddingRight="33dp"
+            android:rowCount="2">
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:text="Send" />
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:text="Clear" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/btnRead"
+                android:layout_row="0"
+                android:layout_column="3"
+                android:text="Read" />
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:paddingTop="33dp"
+            android:rowCount="1">
+
+            <TextView
+                android:id="@+id/tvReadGims"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
-                android:layout_rowSpan="2"
-                android:layout_column="2" />
-
+                android:layout_column="0"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
         </GridLayout>
 
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.maorlamp.gematriaassistant
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.Image
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val etGimText2 = findViewById<EditText>(R.id.GimText2)
         val etGimResult2 = findViewById<TextView>(R.id.GimResult2)
 
+        /*
         var popupMenu: PopupMenu
         val CurrGimMenu = findViewById<View>(R.id.CurrGimMenu)
         popupMenu = PopupMenu(this, CurrGimMenu)
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         CurrGimMenu.setOnClickListener {
             popupMenu.show()
         }
+        */
 
         etGimText1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -85,13 +88,24 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        /*
 
+        val btnSend = findViewById<Button>(R.id.btnSend)
         btnSend.setOnClickListener {
             SendGim()
         }
-        */
+        val btnClear = findViewById<Button>(R.id.btnClear)
+        btnClear.setOnClickListener {
+            ClearGim()
+        }
 
+        val btnSave = findViewById<Button>(R.id.btnSave)
+        btnSave.setOnClickListener {
+            SaveGim()
+        }
+        val btnRead = findViewById<Button>(R.id.btnRead)
+        btnRead.setOnClickListener {
+            ReadGim()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -103,27 +117,50 @@ class MainActivity : AppCompatActivity() {
     fun SendGim() {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_TEXT, GetGimPar())
+        var text: String = "Hey, look at this gematria!\n"
+        val gimPair = GetGimPair()
+        text += gimPair?.split('|')?.get(0) ?: ""
+        text += (" = " + gimPair?.split('|')?.get(1)) ?: ""
+        intent.putExtra(Intent.EXTRA_TEXT, text)
         intent.type = "text/plain"
         startActivity(intent)
     }
 
-    fun GetGimPar(): CharSequence? {
+    fun ClearGim() {
+        val etGimText1 = findViewById<EditText>(R.id.GimText1)
+        val etGimResult1 = findViewById<TextView>(R.id.GimResult1)
+        val etGimText2 = findViewById<EditText>(R.id.GimText2)
+        val etGimResult2 = findViewById<TextView>(R.id.GimResult2)
+        etGimText1.setText("")
+        etGimText2.setText("")
+        etGimResult1.text = ""
+        etGimResult2.text = ""
+        etGimResult1.setTextColor(Color.parseColor("#ffffff"))
+        etGimResult2.setTextColor(Color.parseColor("#ffffff"))
+    }
+
+    fun GetGimPair(): CharSequence? {
         val etGimText1 = findViewById<EditText>(R.id.GimText1)
         val etGimText2 = findViewById<EditText>(R.id.GimText2)
         return etGimText1.text.toString() + "|" + etGimText2.text.toString()
     }
 
     fun SaveGim() {
-        val etGimText1 = findViewById<EditText>(R.id.GimText1)
-        val etGimText2 = findViewById<EditText>(R.id.GimText2)
-        /*
-        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        sharedPreferences.edit().putString("Gim", GetGimPar()).apply()
+        val sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        //val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gimPair = GetGimPair()
+        editor.putString("Gim1", gimPair?.split('|')?.get(0) ?: "")
+        editor.putString("Gim2", gimPair?.split('|')?.get(1) ?: "")
+        editor.apply()
+    }
 
-        val f = File("jjj.txt"!!)
-        f.appendText(GetGimPar() + System.getProperty("line.separator"))
-         */
+    fun ReadGim() {
+        val sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        val Gim1 = sharedPreferences.getString("Gim1", null)
+        val Gim2 = sharedPreferences.getString("Gim2", null)
+        val tvReadGims = findViewById<TextView>(R.id.tvReadGims)
+        tvReadGims.append("$Gim1 = $Gim2")
     }
 
     fun CalcGim(s: CharSequence?): CharSequence? {
@@ -132,12 +169,6 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until s.length) {
                 val char = s[i]
                 when (char) {
-                    'a' -> gim += 1
-                    'b' -> gim += 2
-                    'c' -> gim += 3
-                    'd' -> gim += 4
-
-
                     'א' -> gim += 1
                     'ב' -> gim += 2
                     'ג' -> gim += 3

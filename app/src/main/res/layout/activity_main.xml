@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="2"
+            android:paddingTop="33dp">
+
+            <EditText
+                android:id="@+id/GimText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:height="33dp"
+                android:width="270dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/gim_text"
+                android:ems="15"
+                android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/GimResult1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:height="33dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/GimText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:height="33dp"
+                android:width="270dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/gim_text"
+                android:ems="15"
+                android:inputType="text"/>
+
+            <TextView
+                android:id="@+id/GimResult2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:height="33dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="25sp"/>
+
+        </GridLayout>
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="1"
+            android:paddingTop="15dp"
+            android:paddingRight="10dp">
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:text="Send" />
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:text="Clear" />
+        </GridLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

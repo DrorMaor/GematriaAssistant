@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/currSave"
+        android:title="@string/save" />
+    <item
+        android:id="@+id/currClear"
+        android:title="@string/clear" />
+    <item
+        android:id="@+id/currSend"
+        android:title="@string/send" />
+</menu>
